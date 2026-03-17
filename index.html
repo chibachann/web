@@ -3,11 +3,174 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Web Design</title>
+    <title>CYBER//UI — Design System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
-    <div id="app"></div>
+
+    <!-- Matrix rain canvas -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- Scanline overlay -->
+    <div class="scanlines" aria-hidden="true"></div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+      <div class="nav__logo">CYBER<span class="accent-cyan">//</span>UI</div>
+      <ul class="nav__links">
+        <li><a href="#buttons"  class="nav__link">BUTTONS</a></li>
+        <li><a href="#cards"   class="nav__link">CARDS</a></li>
+        <li><a href="#forms"   class="nav__link">INPUT</a></li>
+        <li><a href="#badges"  class="nav__link">BADGES</a></li>
+        <li><a href="#misc"    class="nav__link">MISC</a></li>
+      </ul>
+    </nav>
+
+    <div id="app">
+
+      <!-- ── Hero ── -->
+      <section class="hero">
+        <p class="hero__label">// DESIGN SYSTEM v0.1.0</p>
+        <h1 class="hero__title glitch" data-text="CYBER//UI">CYBER//UI</h1>
+        <p class="hero__sub"><span class="typewriter" data-text="サイバーパンク UI コンポーネント集"></span><span class="cursor">█</span></p>
+      </section>
+
+      <!-- ── Buttons ── -->
+      <section id="buttons" class="section">
+        <h2 class="section__title">// BUTTONS</h2>
+        <div class="row">
+          <button class="btn btn--primary">EXECUTE</button>
+          <button class="btn btn--secondary">ACCESS</button>
+          <button class="btn btn--danger">TERMINATE</button>
+          <button class="btn btn--ghost">BYPASS</button>
+          <button class="btn btn--primary" disabled>LOCKED</button>
+        </div>
+      </section>
+
+      <!-- ── Cards ── -->
+      <section id="cards" class="section">
+        <h2 class="section__title">// CARDS</h2>
+        <div class="cards-grid">
+
+          <div class="card card--cyan">
+            <div class="card__header">
+              <span class="card__tag">SYS</span>
+              <span class="card__status status--online">● ONLINE</span>
+            </div>
+            <h3 class="card__title">Neural Interface</h3>
+            <p class="card__body">接続ステータス: アクティブ。データストリームを監視中。</p>
+            <div class="card__footer">
+              <span class="card__metric">CPU: <span class="live-cpu">84</span>%</span>
+              <span class="card__metric">MEM: <span class="live-mem">2.4</span>GB</span>
+            </div>
+          </div>
+
+          <div class="card card--magenta">
+            <div class="card__header">
+              <span class="card__tag">NET</span>
+              <span class="card__status status--warning">▲ ALERT</span>
+            </div>
+            <h3 class="card__title">Firewall Breach</h3>
+            <p class="card__body">未知のアクセスポイントを検出。プロトコルを起動してください。</p>
+            <div class="card__footer">
+              <span class="card__metric">THREAT: HIGH</span>
+              <span class="card__metric">PORT: <span class="live-port">8080</span></span>
+            </div>
+          </div>
+
+          <div class="card card--green">
+            <div class="card__header">
+              <span class="card__tag">SEC</span>
+              <span class="card__status status--online">● SECURED</span>
+            </div>
+            <h3 class="card__title">Data Vault</h3>
+            <p class="card__body">暗号化レベル: AES-256。バックアップ完了。</p>
+            <div class="card__footer">
+              <span class="card__metric">FILES: <span class="live-files">4,096</span></span>
+              <span class="card__metric">ENC: ON</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ── Forms ── -->
+      <section id="forms" class="section">
+        <h2 class="section__title">// INPUT</h2>
+        <div class="form-half">
+          <div class="form-group">
+            <label class="label" for="identifier">IDENTIFIER</label>
+            <input id="identifier" type="text" class="input" placeholder="user@cyber.net" />
+          </div>
+          <div class="form-group">
+            <label class="label" for="access-code">ACCESS CODE</label>
+            <input id="access-code" type="password" class="input" placeholder="••••••••••••" />
+          </div>
+          <div class="form-group">
+            <label class="label" for="system-select">TARGET SYSTEM</label>
+            <div class="select-wrap">
+              <select id="system-select" class="select">
+                <option>MAINFRAME</option>
+                <option>SUBNET_A</option>
+                <option>DARKNET</option>
+              </select>
+              <span class="select-arrow">▼</span>
+            </div>
+          </div>
+          <button class="btn btn--primary" style="width:100%;margin-top:.5rem">AUTHENTICATE</button>
+        </div>
+      </section>
+
+      <!-- ── Badges ── -->
+      <section id="badges" class="section">
+        <h2 class="section__title">// BADGES</h2>
+        <div class="row">
+          <span class="badge badge--cyan">ONLINE</span>
+          <span class="badge badge--magenta">BREACH</span>
+          <span class="badge badge--green">SECURED</span>
+          <span class="badge badge--orange">WARNING</span>
+          <span class="badge badge--gray">OFFLINE</span>
+        </div>
+      </section>
+
+      <!-- ── Misc ── -->
+      <section id="misc" class="section">
+        <h2 class="section__title">// MISC</h2>
+
+        <div class="form-group">
+          <label class="label">UPLOAD PROGRESS — <span class="accent-cyan" id="progress-val">72</span>%</label>
+          <div class="progress">
+            <div class="progress__bar" id="progress-bar" style="width:72%"></div>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top:2rem">
+          <label class="label">SYSTEM TOGGLES</label>
+          <div class="row" style="gap:2rem">
+            <label class="toggle">
+              <input type="checkbox" checked />
+              <span class="toggle__track"></span>
+              <span class="toggle__label">FIREWALL</span>
+            </label>
+            <label class="toggle">
+              <input type="checkbox" />
+              <span class="toggle__track"></span>
+              <span class="toggle__label">VPN</span>
+            </label>
+            <label class="toggle">
+              <input type="checkbox" checked />
+              <span class="toggle__track"></span>
+              <span class="toggle__label">STEALTH</span>
+            </label>
+          </div>
+        </div>
+
+      </section>
+    </div><!-- /#app -->
+
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
