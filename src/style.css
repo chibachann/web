@@ -629,3 +629,145 @@ body::before {
   color: var(--cyan);
   text-shadow: 0 0 8px rgba(0,245,255,.5);
 }
+
+/* ── Swipe indicator (mobile) ────────────────────────────── */
+.swipe-indicator {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  background: rgba(3,3,8,.85);
+  border: 1px solid var(--cyan-dim);
+  backdrop-filter: blur(10px);
+  padding: .5rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  opacity: 0;
+  transition: opacity .3s ease;
+  pointer-events: none;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+}
+.swipe-indicator.is-visible { opacity: 1; }
+
+.swipe-indicator__label {
+  font-family: var(--font-display);
+  font-size: .58rem;
+  letter-spacing: .2em;
+  color: var(--cyan);
+  text-shadow: var(--glow-cyan);
+  white-space: nowrap;
+}
+
+.swipe-indicator__dots {
+  display: flex;
+  gap: .35rem;
+}
+.swipe-indicator__dot {
+  width: 5px; height: 5px;
+  border: 1px solid var(--cyan-dim);
+  transition: background .2s, box-shadow .2s;
+}
+.swipe-indicator__dot.is-active {
+  background: var(--cyan);
+  box-shadow: var(--glow-cyan);
+}
+
+/* ── Mobile (< 768px) ────────────────────────────────────── */
+@media (max-width: 767px) {
+
+  /* nav: horizontal scroll pill strip */
+  .nav {
+    padding: .75rem 1rem;
+    gap: .75rem;
+  }
+  .nav__logo { font-size: .9rem; flex-shrink: 0; }
+
+  .nav__links {
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    flex: 1;
+    justify-content: flex-end;
+  }
+  .nav__links::-webkit-scrollbar { display: none; }
+
+  .nav__link {
+    padding: .4rem .75rem;
+    font-size: .6rem;
+    white-space: nowrap;
+  }
+  .nav__link::after { display: none; }
+  .nav__link.is-active {
+    background: rgba(0,245,255,.1);
+    outline: 1px solid var(--cyan-dim);
+  }
+
+  /* app padding */
+  #app { padding: 2rem 1rem 6rem; }
+
+  /* hero */
+  .hero { padding: 3.5rem 0 3rem; }
+  .hero__label { font-size: .62rem; }
+  .hero__sub   { font-size: .82rem; }
+
+  /* section */
+  .section { padding: 1.4rem 1rem 1.6rem; }
+
+  /* buttons: wider tap target */
+  .btn {
+    padding: .75rem 1.4rem;
+    font-size: .62rem;
+    min-height: 44px;
+  }
+  .row { gap: .75rem; }
+
+  /* cards: single column */
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  /* disable hover lift on touch (avoid sticky hover) */
+  .card:hover { transform: none; }
+  @media (hover: hover) {
+    .card:hover { transform: translateY(-5px); }
+  }
+
+  /* forms */
+  .form-half { max-width: 100%; }
+  .input, .select {
+    font-size: .85rem;
+    padding: .8rem 1rem;
+    min-height: 44px;
+  }
+  .label { font-size: .62rem; letter-spacing: .2em; }
+
+  /* badges */
+  .badge {
+    font-size: .6rem;
+    padding: .3rem .8rem;
+    min-height: 28px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* toggles */
+  .toggle { gap: .9rem; }
+  .toggle__track  { width: 48px; height: 26px; }
+  .toggle__track::after { width: 20px; height: 20px; }
+  .toggle input:checked + .toggle__track::after { left: 24px; }
+  .toggle__label { font-size: .65rem; }
+
+  /* progress */
+  .progress { height: 12px; }
+
+  /* swipe indicator: always render (JS controls visibility) */
+  .swipe-indicator { display: flex; }
+}
+
+@media (min-width: 768px) {
+  /* hide swipe indicator on desktop */
+  .swipe-indicator { display: none; }
+}
