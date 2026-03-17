@@ -45,7 +45,7 @@
           <button class="btn btn--primary">EXECUTE</button>
           <button class="btn btn--secondary">ACCESS</button>
           <button class="btn btn--danger">TERMINATE</button>
-          <button class="btn btn--ghost">BYPASS</button>
+          <button class="btn btn--ghost" id="btn-bypass">BYPASS</button>
           <button class="btn btn--primary" disabled>LOCKED</button>
         </div>
       </section>
@@ -170,6 +170,43 @@
 
       </section>
     </div><!-- /#app -->
+
+    <!-- ── VOID OVERLAY ── -->
+    <div id="void-overlay" aria-hidden="true">
+      <canvas id="void-canvas"></canvas>
+
+      <div class="void-content">
+        <p class="void-sector">// SECTOR: NULL_VOID — UNREGISTERED SPACE</p>
+
+        <div class="void-portal" aria-hidden="true">
+          <div class="void-portal__ring void-portal__ring--1"></div>
+          <div class="void-portal__ring void-portal__ring--2"></div>
+          <div class="void-portal__ring void-portal__ring--3"></div>
+          <div class="void-portal__core"></div>
+        </div>
+
+        <h1 class="void-title glitch-void" data-text="NULL://DIMENSION">NULL://DIMENSION</h1>
+
+        <div class="void-stats">
+          <div class="void-stat"><span class="void-stat__key">COORDINATES</span><span class="void-stat__val" id="void-coord">RESOLVING...</span></div>
+          <div class="void-stat"><span class="void-stat__key">SECTOR</span><span class="void-stat__val">NULL_VOID</span></div>
+          <div class="void-stat"><span class="void-stat__key">PROTOCOL</span><span class="void-stat__val">BYPASSED</span></div>
+          <div class="void-stat"><span class="void-stat__key">REALITY INDEX</span><span class="void-stat__val" id="void-reality">0.000</span></div>
+        </div>
+
+        <div class="void-log" id="void-log" aria-live="polite"></div>
+
+        <div class="void-fragments" id="void-fragments" aria-hidden="true"></div>
+
+        <button class="void-jackout" id="btn-jackout">⚠ JACK OUT</button>
+      </div>
+
+      <!-- transition layers -->
+      <div class="void-wipe" id="void-wipe" aria-hidden="true"></div>
+    </div>
+
+    <!-- RGB split flash layer -->
+    <div id="rgb-flash" aria-hidden="true"></div>
 
     <!-- Swipe section indicator (mobile only) -->
     <div class="swipe-indicator" id="swipe-indicator" aria-hidden="true">
