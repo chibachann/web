@@ -14,6 +14,7 @@ Vite によるホットリロード環境でスタイル変更を即座に確認
 | ビルド / HMR | [Vite](https://vitejs.dev/) |
 | 言語 | HTML / CSS / JavaScript (バニラ) |
 | パッケージ管理 | npm |
+| ホスティング | AWS Amplify (main ブランチ自動デプロイ) |
 
 ---
 
@@ -22,6 +23,7 @@ Vite によるホットリロード環境でスタイル変更を即座に確認
 ```
 web/
 ├── CLAUDE.md          # この指示書
+├── amplify.yml        # AWS Amplify ビルド設定
 ├── docs/
 │   └── logs/          # 作業ログ（YYYY-MM-DD-title.md 形式で追記）
 ├── index.html         # エントリポイント
@@ -29,8 +31,7 @@ web/
 │   ├── style.css      # メインスタイル
 │   └── main.js        # エントリ JS
 ├── public/            # 静的アセット
-├── package.json
-└── vite.config.js
+└── package.json
 ```
 
 ---
@@ -96,8 +97,24 @@ git push origin docs/YYYY-MM-DD
 
 ---
 
+## デプロイ
+
+### AWS Amplify
+- `main` ブランチへのマージで **自動デプロイ** が走る
+- ビルド設定は `amplify.yml` で管理（`npm ci` → `npm run build` → `dist/` を配信）
+- デプロイ URL: Amplify Console で確認
+
+### ローカル確認
+```bash
+npm run build    # dist/ を生成
+npm run preview  # http://localhost:4173 でビルド成果物を確認
+```
+
+---
+
 ## 注意事項
 
 - デザイン変更は `src/style.css` を主戦場にする
 - JS ロジックと CSS は分離して管理する
 - `public/` に画像・フォントなど静的アセットを置く
+- `dist/` は `.gitignore` に含める（Amplify がビルドするため不要）
