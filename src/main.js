@@ -353,11 +353,9 @@ if (cityCanvas) {
     }
 
     if (hoveredNode && cityTooltip) {
-      const n   = hoveredNode
-      const cx  = n.rx * rect.width
-      const cy  = n.ry * rect.height
-      const tipX = Math.min(cx + 16, rect.width  - 180)
-      const tipY = Math.min(cy + 16, rect.height - 100)
+      const n  = hoveredNode
+      const cx = n.rx * rect.width
+      const cy = n.ry * rect.height
 
       cityTooltip.innerHTML = `
         <div class="city-tooltip__name">${n.id} — ${n.name}</div>
@@ -373,6 +371,24 @@ if (cityCanvas) {
           <span class="city-tooltip__key">CONTROL</span>
           <span class="city-tooltip__val">${n.ctrl}</span>
         </div>`
+
+      // after innerHTML, measure the tooltip to avoid overflow
+      const tipW = cityTooltip.offsetWidth  || 180
+      const tipH = cityTooltip.offsetHeight || 100
+      const isMobile = rect.width < 500
+
+      let tipX, tipY
+      if (isMobile) {
+        // on mobile: center horizontally, position above node
+        tipX = Math.max(4, Math.min(cx - tipW / 2, rect.width - tipW - 4))
+        tipY = Math.max(4, cy - tipH - 14)
+      } else {
+        tipX = cx + 16
+        tipY = cy + 8
+        if (tipX + tipW > rect.width  - 4) tipX = cx - tipW - 8
+        if (tipY + tipH > rect.height - 4) tipY = cy - tipH - 8
+      }
+
       cityTooltip.style.left = `${tipX}px`
       cityTooltip.style.top  = `${tipY}px`
       cityTooltip.classList.add('is-visible')
