@@ -409,6 +409,11 @@ body::before {
   background: rgba(0,245,255,.02);
   transition: border-color .2s, background .2s;
 }
+/* desktop: flatten the mobile wrapper divs into the grid flow */
+.op-item__header-row,
+.op-item__meta-row {
+  display: contents;
+}
 .op-item:hover {
   border-color: var(--cyan-dim);
   background: rgba(0,245,255,.05);
@@ -1396,16 +1401,17 @@ body::before {
   box-shadow: var(--glow-cyan);
 }
 
-/* ── Mobile (< 768px) ────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════
+   MOBILE — Portrait-first responsive
+   縦長画面でこそ映えるレイアウトへ
+   ══════════════════════════════════════════════════════════ */
+
+/* ── < 768px (all mobile) ────────────────────────────────── */
 @media (max-width: 767px) {
 
-  /* nav: horizontal scroll pill strip */
-  .nav {
-    padding: .75rem 1rem;
-    gap: .75rem;
-  }
-  .nav__logo { font-size: .9rem; flex-shrink: 0; }
-
+  /* ── Nav ── */
+  .nav { padding: .7rem .8rem; gap: .6rem; }
+  .nav__logo { font-size: .85rem; flex-shrink: 0; }
   .nav__links {
     gap: 0;
     overflow-x: auto;
@@ -1415,10 +1421,9 @@ body::before {
     justify-content: flex-end;
   }
   .nav__links::-webkit-scrollbar { display: none; }
-
   .nav__link {
-    padding: .4rem .75rem;
-    font-size: .6rem;
+    padding: .38rem .7rem;
+    font-size: .58rem;
     white-space: nowrap;
   }
   .nav__link::after { display: none; }
@@ -1427,95 +1432,225 @@ body::before {
     outline: 1px solid var(--cyan-dim);
   }
 
-  /* app padding */
-  #app { padding: 1.5rem 1rem 6rem; }
+  /* ── App ── */
+  #app { padding: 1.2rem 0 6rem; }
 
-  /* hero: stack vertically */
+  /* sections: edge-to-edge on mobile for industrial feel */
+  .section {
+    padding: 1.4rem 1rem 1.6rem;
+    border-left: none;
+    border-right: none;
+    margin-bottom: 1.5rem;
+  }
+  .section::before { left: 0; }
+  .section::after  { right: 0; }
+
+  /* ── Hero: single column, operator card as banner ── */
   .hero {
     grid-template-columns: 1fr;
-    padding: 2rem 0 2rem;
+    padding: 1.8rem 1rem 1.5rem;
+    gap: 1.2rem;
   }
   .hero__left { text-align: left; }
-  .hero__right { display: none; } /* hide operator card on mobile */
-  .hero__label { font-size: .62rem; }
-  .hero__sub   { font-size: .82rem; }
-  .hero__quickstats { gap: 1.2rem; }
+  .hero__label { font-size: .6rem; }
+  .hero__title { font-size: clamp(2.4rem, 14vw, 3.8rem); margin-bottom: 1rem; }
+  .hero__sub   { font-size: .78rem; margin-bottom: 1.4rem; }
 
-  /* city map */
-  #city-canvas { height: 240px; }
-
-  /* ops: stack */
-  .op-item {
+  /* quickstats: 2x2 grid */
+  .hero__quickstats {
+    display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto auto;
-    gap: .5rem .8rem;
+    gap: .8rem 1rem;
   }
-  .op-item__code   { grid-column: 1; grid-row: 1; }
-  .op-item__name   { grid-column: 2; grid-row: 1; }
-  .op-item__type   { grid-column: 1; grid-row: 2; }
-  .op-item__risk   { grid-column: 2; grid-row: 2; }
-  .op-item__reward { grid-column: 1; grid-row: 3; }
-  .op-accept       { grid-column: 2; grid-row: 3; }
+  .quickstat__val { font-size: .85rem; }
+  .quickstat__key { font-size: .52rem; }
 
-  /* factions: 2 columns */
-  .factions-grid { grid-template-columns: repeat(2, 1fr); gap: .8rem; }
-  .faction-card__desc { display: none; }
+  /* operator card: horizontal banner on mobile */
+  .hero__right { display: block; }
+  .operator-card {
+    width: 100%;
+    padding: .9rem 1rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    gap: .4rem .9rem;
+  }
+  .operator-card::before { display: none; }
+  .operator-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: var(--cyan);
+    box-shadow: var(--glow-cyan);
+  }
+  .operator-card__header {
+    grid-column: 1 / -1;
+    margin-bottom: .2rem;
+    border-bottom: 1px solid rgba(0,245,255,.1);
+    padding-bottom: .4rem;
+  }
+  .operator-card__avatar {
+    grid-column: 1;
+    grid-row: 2;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .3rem;
+  }
+  #avatar-canvas { width: 56px; height: 56px; }
+  .operator-card__avatar-id { font-size: .55rem; }
+  .operator-card__stats {
+    grid-column: 2;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .35rem .5rem;
+    align-content: start;
+  }
+  .op-stat { flex-direction: column; gap: .05rem; }
+  .op-stat__key { font-size: .48rem; letter-spacing: .1em; }
+  .op-stat__val { font-size: .62rem; text-align: left; }
 
-  /* section */
-  .section { padding: 1.4rem 1rem 1.6rem; }
+  /* ── City map: taller for portrait ── */
+  .city-map-wrap { margin-bottom: .8rem; }
+  #city-canvas   { height: 300px; }
+  .city-legend   { gap: .8rem; flex-wrap: wrap; }
+  .legend-item   { font-size: .58rem; }
 
-  /* buttons: wider tap target */
+  /* ── Operations: card-style vertical layout ── */
+  .ops-list { gap: .8rem; }
+
+  .op-item {
+    display: flex;
+    flex-direction: column;
+    gap: .55rem;
+    padding: 1rem 1rem 1rem;
+    border-left: none;
+    border-right: none;
+  }
+  /* restore wrapper divs as flex containers on mobile */
+  .op-item__header-row,
+  .op-item__meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* row 1: code + type badge */
+  .op-item__header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .op-item__code {
+    font-size: .58rem;
+    letter-spacing: .12em;
+  }
+  /* row 2: name (big) */
+  .op-item__name {
+    font-size: .92rem;
+    letter-spacing: .06em;
+  }
+  /* row 3: risk + reward side by side */
+  .op-item__meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .op-item__risk  { flex-direction: row; align-items: center; gap: .5rem; }
+  .op-item__reward { font-size: .85rem; }
+  /* row 4: full-width accept */
+  .op-accept {
+    width: 100%;
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+    min-height: 44px;
+    font-size: .65rem;
+  }
+
+  /* ── Factions: single column, full info ── */
+  .factions-grid {
+    grid-template-columns: 1fr;
+    gap: .8rem;
+  }
+  .faction-card {
+    border-left: none;
+    border-right: none;
+    padding: 1rem;
+  }
+  .faction-card__desc { display: block; }  /* restore description */
+  .faction-card:hover { transform: none; }
+
+  /* ── Cards ── */
+  .cards-grid { grid-template-columns: 1fr; gap: .8rem; }
+  .card { border-left: none; border-right: none; }
+  .card:hover { transform: none; }
+
+  /* ── Buttons ── */
   .btn {
-    padding: .75rem 1.4rem;
+    padding: .75rem 1.3rem;
     font-size: .62rem;
     min-height: 44px;
   }
-  .row { gap: .75rem; }
-
-  /* cards: single column */
-  .cards-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+  .btn:active:not(:disabled) {
+    filter: brightness(1.5);
+    transform: scale(.97);
   }
-  /* disable hover lift on touch (avoid sticky hover) */
-  .card:hover { transform: none; }
-  @media (hover: hover) {
-    .card:hover { transform: translateY(-5px); }
-  }
+  .row { gap: .6rem; flex-wrap: wrap; }
 
-  /* forms */
+  /* ── Forms ── */
   .form-half { max-width: 100%; }
-  .input, .select {
-    font-size: .85rem;
-    padding: .8rem 1rem;
-    min-height: 44px;
-  }
-  .label { font-size: .62rem; letter-spacing: .2em; }
+  .input, .select { font-size: .85rem; padding: .8rem 1rem; min-height: 44px; }
+  .label { font-size: .6rem; letter-spacing: .18em; }
 
-  /* badges */
+  /* ── Badges ── */
   .badge {
     font-size: .6rem;
-    padding: .3rem .8rem;
+    padding: .28rem .75rem;
     min-height: 28px;
     display: inline-flex;
     align-items: center;
   }
 
-  /* toggles */
-  .toggle { gap: .9rem; }
-  .toggle__track  { width: 48px; height: 26px; }
+  /* ── Toggles ── */
+  .toggle { gap: .9rem; min-height: 44px; align-items: center; }
+  .toggle__track { width: 48px; height: 26px; }
   .toggle__track::after { width: 20px; height: 20px; }
   .toggle input:checked + .toggle__track::after { left: 24px; }
   .toggle__label { font-size: .65rem; }
 
-  /* progress */
+  /* ── Progress ── */
   .progress { height: 12px; }
 
-  /* swipe indicator: always render (JS controls visibility) */
+  /* ── Swipe indicator ── */
   .swipe-indicator { display: flex; }
+
+  /* ── Void ── */
+  .void-stats { grid-template-columns: 1fr 1fr; }
+  .void-title { font-size: clamp(1.4rem, 9vw, 2.2rem); }
+  .void-portal { width: 140px; height: 140px; }
+  .void-portal__ring--1 { width: 140px; height: 140px; }
+  .void-portal__ring--2 { width: 100px; height: 100px; }
+  .void-portal__ring--3 { width: 62px;  height: 62px; }
+  .void-jackout { font-size: .62rem; padding: .75rem 1.8rem; min-height: 48px; }
+
+  /* ── Touch: active states for tap feedback ── */
+  .card:active       { filter: brightness(1.15); }
+  .faction-card:active { filter: brightness(1.1); }
+  .op-item:active    { background: rgba(0,245,255,.05); }
 }
 
+/* ── Extra small (< 400px) ───────────────────────────────── */
+@media (max-width: 399px) {
+  .hero__title      { font-size: 2.2rem; }
+  .operator-card__stats { grid-template-columns: 1fr; }
+  .hero__quickstats { grid-template-columns: 1fr 1fr; }
+  .op-item__name    { font-size: .8rem; }
+  .void-title       { font-size: 1.3rem; }
+}
+
+/* ── Desktop only ────────────────────────────────────────── */
 @media (min-width: 768px) {
-  /* hide swipe indicator on desktop */
   .swipe-indicator { display: none; }
 }
