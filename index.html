@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CYBER//UI — Design System</title>
+    <title>GHOST.NET — SECURE TERMINAL</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -19,28 +19,243 @@
 
     <!-- Navigation -->
     <nav class="nav">
-      <div class="nav__logo">CYBER<span class="accent-cyan">//</span>UI</div>
+      <div class="nav__logo">GHOST<span class="accent-cyan">.NET</span></div>
       <ul class="nav__links">
-        <li><a href="#buttons"  class="nav__link">BUTTONS</a></li>
-        <li><a href="#cards"   class="nav__link">CARDS</a></li>
-        <li><a href="#forms"   class="nav__link">INPUT</a></li>
-        <li><a href="#badges"  class="nav__link">BADGES</a></li>
-        <li><a href="#misc"    class="nav__link">MISC</a></li>
+        <li><a href="#citymap"  class="nav__link">GRID</a></li>
+        <li><a href="#ops"      class="nav__link">OPS</a></li>
+        <li><a href="#factions" class="nav__link">FACTIONS</a></li>
+        <li><a href="#buttons"  class="nav__link">MODULES</a></li>
+        <li><a href="#misc"     class="nav__link">DIAG</a></li>
       </ul>
     </nav>
+
+    <!-- Intel Ticker -->
+    <div class="intel-ticker" aria-label="Intelligence feed">
+      <span class="ticker-label">INTEL</span>
+      <div class="ticker-track">
+        <div class="ticker-inner" id="ticker-inner"></div>
+      </div>
+    </div>
 
     <div id="app">
 
       <!-- ── Hero ── -->
       <section class="hero">
-        <p class="hero__label">// DESIGN SYSTEM v0.1.0</p>
-        <h1 class="hero__title glitch" data-text="CYBER//UI">CYBER//UI</h1>
-        <p class="hero__sub"><span class="typewriter" data-text="サイバーパンク UI コンポーネント集"></span><span class="cursor">█</span></p>
+        <div class="hero__left">
+          <p class="hero__label">// GHOST.NET — SECURE TERMINAL v4.7.2</p>
+          <h1 class="hero__title glitch" data-text="GHOST.NET">GHOST.NET</h1>
+          <p class="hero__sub">
+            <span class="typewriter" data-text="OPERATOR AUTHENTICATED — SPECTER ONLINE"></span><span class="cursor">█</span>
+          </p>
+          <div class="hero__quickstats">
+            <div class="quickstat">
+              <span class="quickstat__val" id="city-time">--:--:--</span>
+              <span class="quickstat__key">NEON CITY</span>
+            </div>
+            <div class="quickstat">
+              <span class="quickstat__val" style="color:var(--orange);text-shadow:var(--glow-orange)">3</span>
+              <span class="quickstat__key">ACTIVE THREATS</span>
+            </div>
+            <div class="quickstat">
+              <span class="quickstat__val accent-cyan">ONLINE</span>
+              <span class="quickstat__key">GHOST.NET</span>
+            </div>
+            <div class="quickstat">
+              <span class="quickstat__val" id="session-timer">00:00:00</span>
+              <span class="quickstat__key">SESSION</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__right">
+          <div class="operator-card">
+            <div class="operator-card__header">
+              <span class="operator-card__label">OPERATOR PROFILE</span>
+              <span class="card__status status--online">● ACTIVE</span>
+            </div>
+            <div class="operator-card__avatar" aria-hidden="true">
+              <canvas id="avatar-canvas" width="80" height="80"></canvas>
+              <div class="operator-card__avatar-id">SPECTER</div>
+            </div>
+            <div class="operator-card__stats">
+              <div class="op-stat">
+                <span class="op-stat__key">CODENAME</span>
+                <span class="op-stat__val">SPECTER</span>
+              </div>
+              <div class="op-stat">
+                <span class="op-stat__key">CLEARANCE</span>
+                <span class="op-stat__val accent-cyan">PHANTOM LV.4</span>
+              </div>
+              <div class="op-stat">
+                <span class="op-stat__key">LOCATION</span>
+                <span class="op-stat__val">SECTOR THETA</span>
+              </div>
+              <div class="op-stat">
+                <span class="op-stat__key">OPS COMPLETED</span>
+                <span class="op-stat__val">47</span>
+              </div>
+              <div class="op-stat">
+                <span class="op-stat__key">THREAT STATUS</span>
+                <span class="op-stat__val" style="color:var(--orange);text-shadow:var(--glow-orange)">WANTED</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
-      <!-- ── Buttons ── -->
+      <!-- ── City Network Map ── -->
+      <section id="citymap" class="section">
+        <h2 class="section__title">// CITY NETWORK — NEON CITY 2077</h2>
+        <div class="city-map-wrap">
+          <canvas id="city-canvas"></canvas>
+          <div class="city-tooltip" id="city-tooltip" aria-live="polite"></div>
+        </div>
+        <div class="city-legend">
+          <span class="legend-item"><span class="legend-dot" style="background:var(--cyan)"></span>SAFE</span>
+          <span class="legend-item"><span class="legend-dot" style="background:var(--green)"></span>CLEAR</span>
+          <span class="legend-item"><span class="legend-dot" style="background:var(--orange)"></span>CAUTION</span>
+          <span class="legend-item"><span class="legend-dot" style="background:var(--red)"></span>DANGER</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#cc00ff"></span>VOID</span>
+        </div>
+      </section>
+
+      <!-- ── Available Operations ── -->
+      <section id="ops" class="section">
+        <h2 class="section__title">// AVAILABLE OPERATIONS</h2>
+        <div class="ops-list">
+
+          <div class="op-item" data-op="PHANTOM_WIRE">
+            <div class="op-item__code">OP-2077-047</div>
+            <div class="op-item__name">PHANTOM WIRE</div>
+            <div class="op-item__type"><span class="badge badge--magenta">EXTRACTION</span></div>
+            <div class="op-item__risk" data-risk="3">
+              <span class="risk-label">RISK</span>
+              <div class="risk-bars"><span></span><span></span><span></span><span></span><span></span></div>
+            </div>
+            <div class="op-item__reward">¥84,000</div>
+            <button class="btn btn--primary op-accept" data-sector="ALPHA" data-name="PHANTOM WIRE">ACCEPT</button>
+          </div>
+
+          <div class="op-item" data-op="BLACKOUT">
+            <div class="op-item__code">OP-2077-051</div>
+            <div class="op-item__name">BLACKOUT</div>
+            <div class="op-item__type"><span class="badge badge--orange">SABOTAGE</span></div>
+            <div class="op-item__risk" data-risk="4">
+              <span class="risk-label">RISK</span>
+              <div class="risk-bars"><span></span><span></span><span></span><span></span><span></span></div>
+            </div>
+            <div class="op-item__reward">¥120,000</div>
+            <button class="btn btn--primary op-accept" data-sector="GAMMA" data-name="BLACKOUT">ACCEPT</button>
+          </div>
+
+          <div class="op-item" data-op="DEEP_DIVE">
+            <div class="op-item__code">OP-2077-038</div>
+            <div class="op-item__name">DEEP DIVE</div>
+            <div class="op-item__type"><span class="badge badge--cyan">INFILTRATION</span></div>
+            <div class="op-item__risk" data-risk="2">
+              <span class="risk-label">RISK</span>
+              <div class="risk-bars"><span></span><span></span><span></span><span></span><span></span></div>
+            </div>
+            <div class="op-item__reward">¥52,000</div>
+            <button class="btn btn--primary op-accept" data-sector="SIGMA" data-name="DEEP DIVE">ACCEPT</button>
+          </div>
+
+          <div class="op-item" data-op="GHOST_SIGNAL">
+            <div class="op-item__code">OP-2077-029</div>
+            <div class="op-item__name">GHOST SIGNAL</div>
+            <div class="op-item__type"><span class="badge badge--green">RECON</span></div>
+            <div class="op-item__risk" data-risk="1">
+              <span class="risk-label">RISK</span>
+              <div class="risk-bars"><span></span><span></span><span></span><span></span><span></span></div>
+            </div>
+            <div class="op-item__reward">¥28,000</div>
+            <button class="btn btn--primary op-accept" data-sector="BETA" data-name="GHOST SIGNAL">ACCEPT</button>
+          </div>
+
+        </div>
+
+        <!-- Op accepted modal -->
+        <div class="op-modal" id="op-modal" aria-hidden="true">
+          <div class="op-modal__inner">
+            <p class="op-modal__label">// MISSION ACCEPTED</p>
+            <p class="op-modal__name" id="op-modal-name">PHANTOM WIRE</p>
+            <p class="op-modal__detail">REPORTING TO <span id="op-modal-sector">SECTOR ALPHA</span></p>
+            <p class="op-modal__warn">▲ STAY IN THE SHADOWS, SPECTER.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Faction Status ── -->
+      <section id="factions" class="section">
+        <h2 class="section__title">// FACTION STATUS</h2>
+        <div class="factions-grid">
+
+          <div class="faction-card faction--hostile">
+            <div class="faction-card__top">
+              <span class="faction-card__icon">◈</span>
+              <div>
+                <div class="faction-card__id">AXIOM-CORP</div>
+                <div class="faction-card__name">Axiom Corporation</div>
+              </div>
+            </div>
+            <div class="faction-card__rel">
+              <div class="faction-rel-bar"><div class="faction-rel-fill" style="width:4%"></div></div>
+              <span class="faction-rel-label" style="color:var(--red)">HOSTILE</span>
+            </div>
+            <p class="faction-card__desc">最大の敵対コーポレーション。全 Ghost Collective メンバーに懸賞金を設定。監視網を展開中。</p>
+          </div>
+
+          <div class="faction-card faction--allied">
+            <div class="faction-card__top">
+              <span class="faction-card__icon">◈</span>
+              <div>
+                <div class="faction-card__id">GHOST-COL</div>
+                <div class="faction-card__name">Ghost Collective</div>
+              </div>
+            </div>
+            <div class="faction-card__rel">
+              <div class="faction-rel-bar"><div class="faction-rel-fill" style="width:96%"></div></div>
+              <span class="faction-rel-label accent-cyan">ALLIED</span>
+            </div>
+            <p class="faction-card__desc">我々の組織。SECTOR THETA を拠点にコーポレートの支配に抵抗する地下ネットランナー集団。</p>
+          </div>
+
+          <div class="faction-card faction--neutral">
+            <div class="faction-card__top">
+              <span class="faction-card__icon">◈</span>
+              <div>
+                <div class="faction-card__id">NEON-SYN</div>
+                <div class="faction-card__name">Neon Syndicate</div>
+              </div>
+            </div>
+            <div class="faction-card__rel">
+              <div class="faction-rel-bar"><div class="faction-rel-fill" style="width:50%"></div></div>
+              <span class="faction-rel-label" style="color:var(--orange)">NEUTRAL</span>
+            </div>
+            <p class="faction-card__desc">BETA セクターを支配する裏社会組織。取引次第で協力関係になりうる。信用は禁物。</p>
+          </div>
+
+          <div class="faction-card faction--friendly">
+            <div class="faction-card__top">
+              <span class="faction-card__icon">◈</span>
+              <div>
+                <div class="faction-card__id">FREE-CIR</div>
+                <div class="faction-card__name">Free Circuit</div>
+              </div>
+            </div>
+            <div class="faction-card__rel">
+              <div class="faction-rel-bar"><div class="faction-rel-fill" style="width:78%"></div></div>
+              <span class="faction-rel-label" style="color:var(--green)">FRIENDLY</span>
+            </div>
+            <p class="faction-card__desc">反コーポ活動家集団。情報共有で協力関係を構築中。武力行使には慎重なため作戦連携に限界あり。</p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ── System Modules (existing) ── -->
       <section id="buttons" class="section">
-        <h2 class="section__title">// BUTTONS</h2>
+        <h2 class="section__title">// COMMAND PROTOCOLS</h2>
         <div class="row">
           <button class="btn btn--primary">EXECUTE</button>
           <button class="btn btn--secondary">ACCESS</button>
@@ -50,11 +265,9 @@
         </div>
       </section>
 
-      <!-- ── Cards ── -->
       <section id="cards" class="section">
-        <h2 class="section__title">// CARDS</h2>
+        <h2 class="section__title">// SYSTEM NODES</h2>
         <div class="cards-grid">
-
           <div class="card card--cyan">
             <div class="card__header">
               <span class="card__tag">SYS</span>
@@ -67,7 +280,6 @@
               <span class="card__metric">MEM: <span class="live-mem">2.4</span>GB</span>
             </div>
           </div>
-
           <div class="card card--magenta">
             <div class="card__header">
               <span class="card__tag">NET</span>
@@ -80,7 +292,6 @@
               <span class="card__metric">PORT: <span class="live-port">8080</span></span>
             </div>
           </div>
-
           <div class="card card--green">
             <div class="card__header">
               <span class="card__tag">SEC</span>
@@ -93,17 +304,15 @@
               <span class="card__metric">ENC: ON</span>
             </div>
           </div>
-
         </div>
       </section>
 
-      <!-- ── Forms ── -->
       <section id="forms" class="section">
-        <h2 class="section__title">// INPUT</h2>
+        <h2 class="section__title">// SECURE COMM</h2>
         <div class="form-half">
           <div class="form-group">
             <label class="label" for="identifier">IDENTIFIER</label>
-            <input id="identifier" type="text" class="input" placeholder="user@cyber.net" />
+            <input id="identifier" type="text" class="input" placeholder="user@ghost.net" />
           </div>
           <div class="form-group">
             <label class="label" for="access-code">ACCESS CODE</label>
@@ -124,9 +333,8 @@
         </div>
       </section>
 
-      <!-- ── Badges ── -->
       <section id="badges" class="section">
-        <h2 class="section__title">// BADGES</h2>
+        <h2 class="section__title">// ACCESS CLEARANCE</h2>
         <div class="row">
           <span class="badge badge--cyan">ONLINE</span>
           <span class="badge badge--magenta">BREACH</span>
@@ -136,17 +344,14 @@
         </div>
       </section>
 
-      <!-- ── Misc ── -->
       <section id="misc" class="section">
-        <h2 class="section__title">// MISC</h2>
-
+        <h2 class="section__title">// SYSTEM DIAGNOSTICS</h2>
         <div class="form-group">
           <label class="label">UPLOAD PROGRESS — <span class="accent-cyan" id="progress-val">72</span>%</label>
           <div class="progress">
             <div class="progress__bar" id="progress-bar" style="width:72%"></div>
           </div>
         </div>
-
         <div class="form-group" style="margin-top:2rem">
           <label class="label">SYSTEM TOGGLES</label>
           <div class="row" style="gap:2rem">
@@ -167,41 +372,32 @@
             </label>
           </div>
         </div>
-
       </section>
+
     </div><!-- /#app -->
 
     <!-- ── VOID OVERLAY ── -->
     <div id="void-overlay" aria-hidden="true">
       <canvas id="void-canvas"></canvas>
-
       <div class="void-content">
         <p class="void-sector">// SECTOR: NULL_VOID — UNREGISTERED SPACE</p>
-
         <div class="void-portal" aria-hidden="true">
           <div class="void-portal__ring void-portal__ring--1"></div>
           <div class="void-portal__ring void-portal__ring--2"></div>
           <div class="void-portal__ring void-portal__ring--3"></div>
           <div class="void-portal__core"></div>
         </div>
-
         <h1 class="void-title glitch-void" data-text="NULL://DIMENSION">NULL://DIMENSION</h1>
-
         <div class="void-stats">
           <div class="void-stat"><span class="void-stat__key">COORDINATES</span><span class="void-stat__val" id="void-coord">RESOLVING...</span></div>
           <div class="void-stat"><span class="void-stat__key">SECTOR</span><span class="void-stat__val">NULL_VOID</span></div>
           <div class="void-stat"><span class="void-stat__key">PROTOCOL</span><span class="void-stat__val">BYPASSED</span></div>
           <div class="void-stat"><span class="void-stat__key">REALITY INDEX</span><span class="void-stat__val" id="void-reality">0.000</span></div>
         </div>
-
         <div class="void-log" id="void-log" aria-live="polite"></div>
-
         <div class="void-fragments" id="void-fragments" aria-hidden="true"></div>
-
         <button class="void-jackout" id="btn-jackout">⚠ JACK OUT</button>
       </div>
-
-      <!-- transition layers -->
       <div class="void-wipe" id="void-wipe" aria-hidden="true"></div>
     </div>
 
@@ -210,7 +406,7 @@
 
     <!-- Swipe section indicator (mobile only) -->
     <div class="swipe-indicator" id="swipe-indicator" aria-hidden="true">
-      <span class="swipe-indicator__label" id="swipe-label">BUTTONS</span>
+      <span class="swipe-indicator__label" id="swipe-label">GRID</span>
       <div class="swipe-indicator__dots" id="swipe-dots"></div>
     </div>
 
