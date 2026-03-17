@@ -1,5 +1,21 @@
 # Web Design Project — Claude 作業指示書
 
+## ⚡ セッション開始時に必ず読むこと
+
+新しいセッションを開始したら、最初に以下のメモリファイルを全て読むこと:
+
+```
+~/.claude/projects/-Users-chiba-Develop-web/memory/project_ghost_net.md
+~/.claude/projects/-Users-chiba-Develop-web/memory/design_language.md
+~/.claude/projects/-Users-chiba-Develop-web/memory/technical_lessons.md
+~/.claude/projects/-Users-chiba-Develop-web/memory/user_workflow.md
+```
+
+これらにはプロジェクトの世界観・デザイン原則・実装ノウハウ・作業ルールが蓄積されている。
+読まずに作業を始めてはならない。
+
+---
+
 ## プロジェクト概要
 
 デザインにこだわった Web ページを開発するプロジェクト。
